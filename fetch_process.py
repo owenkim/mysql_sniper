@@ -1,6 +1,6 @@
 import commands
 import sys
-import logging
+import syslog
 import yaml
 
 def run():
@@ -11,7 +11,7 @@ def run():
     if ret[0] == 0:
         print ret[1]
     else:
-        logging.error('fetch_process.py - Failed to fetch DB status: %s' % ret[1])
+        syslog.syslog(syslog.LOG_ERR, 'fetch_process.py - Failed to fetch DB status: %s' % ret[1])
 
 if __name__ == '__main__':
     run()
