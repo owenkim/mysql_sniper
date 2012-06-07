@@ -8,7 +8,6 @@ _TRANSACTIONS = 'TRANSACTIONS'
 def run():
     stream = file('db_process.yml', 'r')
     config = yaml.load(stream)['production']
-    logging.basicConfig(filename=config['log'])
     input = sys.stdin.read()
     temp = json.loads(input)
     if _TRANSACTIONS in temp:
@@ -23,7 +22,7 @@ def run():
                     else:
                         syslog.syslog(syslog.LOG_ERR, 'sniper.py killed %d that ran %d seconds' % (pid, process['time']))
     else:
-        logging.error('sniper.py could found no data from the parser')
+        syslog.syslog(syslog.LOG_ERR, 'sniper.py could found no data from the parser')
 
 if __name__ == '__main__':
     run()
